@@ -1,0 +1,30 @@
+.navbar {
+    background-color: #033f63;
+    color: white;
+    padding: 20px;
+}
+
+.navbar a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-family: 'georgia';
+    font-size: 20px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+    text-decoration-color: #3D99A5;
+    text-decoration-thickness: 2px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 5px;
+}
+
+.navbar a:enabled {
+    color: #cdcdcd;
+    text-decoration: underline;
+    text-decoration-color: #3D99A5;
+    text-decoration-thickness: 2px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 5px;
+}

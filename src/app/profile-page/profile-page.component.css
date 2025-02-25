@@ -1,0 +1,21 @@
+.profile-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.book-list {
+    flex: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding-top: 20px;
+}
+
+.filters {
+    flex: 1;
+    padding-top: 20px;
+    max-width: 30%;
+}

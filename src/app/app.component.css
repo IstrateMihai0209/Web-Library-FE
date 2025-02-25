@@ -1,0 +1,14 @@
+@font-face {
+    font-family: roboto;
+    src: url('src/assets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: robotoMedium;
+    src: url('src/assets/fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+    font-family: titleFont;
+    src: url('src/assets/fonts/Recoleta-RegularDEMO.otf');
+}

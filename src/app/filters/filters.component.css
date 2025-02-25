@@ -1,0 +1,15 @@
+.filters-container {
+    padding: 20px;
+    width: 250px;
+    text-align: left;
+    font-family: roboto;
+}
+
+.filters-section {
+    margin-bottom: 20px;
+}
+
+.filters-section ul li {
+    margin-bottom: 5px;
+    list-style-type: none;
+}

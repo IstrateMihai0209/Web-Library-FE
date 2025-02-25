@@ -1,0 +1,26 @@
+.book-card {
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3.5px;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    width: 150px;
+    height: 235px;
+    text-align: center;
+    padding: 10px;
+    background-color: #FFEAC1;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.book-cover {
+    width: 90%;
+    height: 85%;
+    border: 1.25px solid black;
+    border-radius: 3.5px;
+}
+
+.book-title {
+    font-size: 14px;
+    padding-top: 1px;
+    font-family: titleFont;
+}

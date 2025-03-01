@@ -9,3 +9,16 @@ body {
     font-family: robotoMono;
     src: url(/assets/fonts/RobotoMono-VariableFont_wght.ttf);
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.center-form {
+    width: 100%;
+    text-align: center;
+}

@@ -1,0 +1,13 @@
+#book-details {
+    font-family: roboto;
+}
+
+.more-info {
+    background-color: #FFE7B1;
+    width: 100%;
+    font-family: roboto;
+}
+
+.more-info h3 {
+    margin-left: 20px;
+}

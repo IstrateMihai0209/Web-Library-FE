@@ -1,4 +1,6 @@
-<div class="book-card">
-    <img [src]="book.coverImage" alt="{{ book.title }}" class="book-cover">
+<div class="book-card" [routerLink]="['/book', book.id]">
+    <div class="cover">
+        <img [src]="book.coverImage" alt="{{ book.title }}" class="book-cover">
+    </div>
     <div class="book-title">{{ book.title }}</div>
 </div>

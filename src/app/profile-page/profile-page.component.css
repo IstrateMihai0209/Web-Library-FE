@@ -1,11 +1,3 @@
-.profile-page-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    max-width: 60%;
-    margin: 0 auto;
-}
-
 .book-list {
     flex: 2;
     display: flex;
@@ -14,8 +6,36 @@
     padding-top: 20px;
 }
 
-.filters {
+.profile-sections {
     flex: 1;
-    padding-top: 20px;
+    padding-top: 50px;
     max-width: 30%;
+}
+
+.profile-sections button {
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3 ease;
+    font-family: roboto;
+}
+
+.profile-sections button:hover {
+    background-color: #FFEAAA;
+}
+
+.profile-sections button:active,
+.profile-sections button:focus {
+    outline: none;
+    background-color: #FFEBBF;
+}
+
+.profile-sections button.active {
+    background-color: #FFEBBF;
 }

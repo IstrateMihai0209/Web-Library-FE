@@ -7,7 +7,5 @@ import { IBookModel } from './book.model';
   styleUrls: ['./book.component.css']
 })
 export class BookComponent {
-
   @Input() book!: IBookModel;
-
 }

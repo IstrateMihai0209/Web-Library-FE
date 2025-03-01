@@ -14,6 +14,8 @@ import { FiltersComponent } from './filters/filters.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
+import { BookDetailsPageComponent } from './book-details-page/book-details-page.component';
+import { BookDetailsComponent } from './book-details/book-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { InfiniteScrollDirective } from './infinite-scroll.directive';
     FiltersComponent,
     HomepageComponent,
     ProfilePageComponent,
-    InfiniteScrollDirective
+    InfiniteScrollDirective,
+    BookDetailsPageComponent,
+    BookDetailsComponent
   ],
   imports: [
     BrowserModule,

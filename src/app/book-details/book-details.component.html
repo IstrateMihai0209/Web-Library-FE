@@ -1,0 +1,37 @@
+<div class="book-container">
+    <div class="book-cover">
+        <img [src]="book.coverImage" [alt]="book.title">
+        <div class="book-actions">
+            <button id="read">Read</button>
+            <button id="wishlist">Add to wishlist</button>
+        </div>
+    </div>
+    <div class="book-description">
+        <h2>{{ book.title }}</h2>
+        <p>{{ book.description }}</p>
+        <div class="book-details">
+            <div class="center-info">
+                <span class="detail-item">
+                    <span class="detail-label">"book.author"</span>
+                    <span class="detail-type">Author</span>
+                </span>
+                <span class="detail-item">
+                    <span class="detail-label">"book.publisher"</span>
+                    <span class="detail-type">Publisher</span>
+                </span>
+                <span class="detail-item">
+                    <span class="detail-label">{{ book.publishDate }}</span>
+                    <span class="detail-type">Publish Date</span>
+                </span>
+                <span class="detail-item">
+                    <span class="detail-label">{{ book.genre }}</span>
+                    <span class="detail-type">Genre</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="more-info">
+    <h3>More about the author</h3>
+    <p>"book.authorDetails" James Oliver Rigney Jr. (October 17, 1948 – September 16, 2007), better known by his pen name Robert Jordan, was an American author of epic fantasy. He is known best for his series The Wheel of Time (finished using Jordan’s notes by Brandon Sanderson after Jordan's death) which comprises 14 books and a prequel novel. He is one of several writers to have written original Conan the Barbarian novels.</p>
+</div>

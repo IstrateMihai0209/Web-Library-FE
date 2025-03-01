@@ -1,9 +1,9 @@
-<div class="profile-page-container">
+<div class="center">
     <lib-book-list class="book-list" [endpoint]="'profile'"></lib-book-list>
     <div class="profile-sections">
-        <button (click)="setFilter('reading')" [class.active]="currentFilter === 'reading'">Currently Reading</button>
-        <button (click)="setFilter('wishlist')" [class.active]="currentfilter === 'wishlist'">Wishlist</button>
-        <button (click)="setFilter('uploads')" [class.active]="currentFilter === 'uploads'">Uploads</button>
-        <button (click)="setFilter('already-read')" [class.active]="currentFilter === 'already-read'">Already Read</button>
+        <button id="reading" (click)="setFilter('reading'); highlightButton('reading');" [class.active]="currentFilter === 'reading'">Currently Reading</button>
+        <button id="wishlist" (click)="setFilter('wishlist'); highlightButton('wishlist');" [class.active]="currentFilter === 'wishlist'">Wishlist</button>
+        <button id="uploads" (click)="setFilter('uploads'); highlightButton('uploads');" [class.active]="currentFilter === 'uploads'">Uploads</button>
+        <button id="already-read" (click)="setFilter('already-read'); highlightButton('already-read');" [class.active]="currentFilter === 'already-read'">Already Read</button>
     </div>
 </div>

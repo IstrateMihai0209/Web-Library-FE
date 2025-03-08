@@ -1,9 +1,12 @@
 export interface IBookModel {
     id: number;
     title: string;
+    author: string;
+    publisher: string;
+    moreAboutAuthor: string;
     genre: string;
     description: string;
-    publishDate: number;
+    publishDate: Date;
     filePath: string;
     uploadedAt: Date;
     coverImage: string;

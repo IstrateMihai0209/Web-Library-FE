@@ -2,7 +2,10 @@
     <lib-book-details [book]="book" id="book-details"></lib-book-details>
 </div>
 <div class="center">
-    <div class="more-info">
-        <h3>More like this</h3>
+    <div class="more-info-container">
+        <div class="more-info">
+            <h3>More like this</h3>
+        </div>
+        <lib-book-scroll class="book-list" [books]="similarBooks"></lib-book-scroll>
     </div>
 </div>

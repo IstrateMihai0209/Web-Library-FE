@@ -10,18 +10,25 @@ import { IBookModel } from '../book/book.model';
 })
 export class BookDetailsPageComponent implements OnInit {
   book!: IBookModel;
+  similarBooks!: IBookModel[];
 
   constructor(private route: ActivatedRoute, private bookService: BookService) { }
-
+  
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const bookId = params.get('id');
       if (bookId) {
         this.fetchBook(Number(bookId));
-      }
-    })
-  }
 
+        setTimeout(() => {
+          this.bookService.getSimilarBooks(this.book).subscribe(response => {
+            this.similarBooks = response; 
+          });
+        }, 500);
+      }
+    });
+  }
+  
   fetchBook(bookId: number): void {
     this.bookService.getBookById(bookId).subscribe({
       next: (result) => {

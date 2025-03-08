@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { IBookModel } from '../book/book.model';
 
 @Component({
@@ -9,5 +9,8 @@ import { IBookModel } from '../book/book.model';
 export class BookDetailsComponent {
   @Input() book!: IBookModel;
 
-
+  getYearOfDate(date: Date): Number {
+    const publishDate = date;
+    return new Date(publishDate).getFullYear();
+  }
 }

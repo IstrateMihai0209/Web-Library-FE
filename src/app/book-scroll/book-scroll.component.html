@@ -1,0 +1,9 @@
+<div class="book-scroll-container">
+    <button class="arrow-button left" (click)="scrollLeft()" [disabled]="!canScrollLeft">&larr;</button>
+
+    <div #scrollContent class="content-wrapper" (scroll)="checkScroll()">
+        <lib-book *ngFor="let book of books" [book]="book"></lib-book>
+    </div>
+
+    <button class="arrow-button right" (click)="scrollRight()" [disabled]="!canScrollRight">&rarr;</button>
+</div>

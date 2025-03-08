@@ -16,8 +16,7 @@ export class BookListComponent implements OnInit {
   private hasMore: boolean = true;
   private filter: string = '';
   
-  //@Input() books!: IBookModel[];
-
+  @Input() similarBooks!: IBookModel[]; //might replace books
   @Input() endpoint!: string;
   
   constructor(private bookService: BookService, private route: ActivatedRoute) {}

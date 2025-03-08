@@ -16,6 +16,9 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { BookDetailsPageComponent } from './book-details-page/book-details-page.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { BookScrollComponent } from './book-scroll/book-scroll.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
+import { BookUploadPageComponent } from './book-upload-page/book-upload-page.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     ProfilePageComponent,
     InfiniteScrollDirective,
     BookDetailsPageComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    BookScrollComponent,
+    CategoryPageComponent,
+    BookUploadPageComponent
   ],
   imports: [
     BrowserModule,

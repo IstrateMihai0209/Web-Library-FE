@@ -12,15 +12,15 @@
         <div class="book-details">
             <div class="center-info">
                 <span class="detail-item">
-                    <span class="detail-label">"book.author"</span>
+                    <span class="detail-label">{{ book.author }}</span>
                     <span class="detail-type">Author</span>
                 </span>
                 <span class="detail-item">
-                    <span class="detail-label">"book.publisher"</span>
+                    <span class="detail-label">{{ book.publisher }}</span>
                     <span class="detail-type">Publisher</span>
                 </span>
                 <span class="detail-item">
-                    <span class="detail-label">{{ book.publishDate }}</span>
+                    <span class="detail-label">{{ getYearOfDate(book.publishDate) }}</span>
                     <span class="detail-type">Publish Date</span>
                 </span>
                 <span class="detail-item">

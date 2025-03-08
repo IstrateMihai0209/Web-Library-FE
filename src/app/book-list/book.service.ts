@@ -54,6 +54,13 @@ export class BookService {
     );
   }
 
+  getSimilarBooks(currentBook: IBookModel): Observable<IBookModel[]> {
+    let params = new HttpParams()
+      .set('id', currentBook.id.toString());
+
+    return this.http.get<any>('api/book/similar-books', { params });
+  }
+
   private assignMainUserParams(userId: number, pageNumber: number): HttpParams {
     return new HttpParams()
       .set('userId', userId)

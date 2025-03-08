@@ -4,7 +4,8 @@
     border-radius: 3.5px;
     box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    width: 25%;
+    width: 150px;
+    height: 230px;
     text-align: center;
     padding: 10px;
     background-color: #FFEAC1;
@@ -15,12 +16,14 @@
 .book-cover {
     border: 1.25px solid black;
     border-radius: 3.5px;
+    width: 150px;
+    height: 190px;
 }
 
 .book-cover img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+    width: 90%;
+    /* height: auto; */
+    /* object-fit: cover; */
     display: block;
 }
 
@@ -30,12 +33,12 @@
     font-family: titleFont;
 }
 
-@media (min-width: 600px) {
+/* @media (min-width: 600px) {
     .book-cover {
         max-width: 150px;
         max-height: 190px;
-        min-width: 130px;
-        min-height: 140px;
+        min-width: 160px;
+        min-height: 180px;
     }
     .book-card {
         max-width: 150px;
@@ -50,4 +53,4 @@
         max-width: 150px;
         max-height: 190px;
     }
-}
+} */

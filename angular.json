@@ -63,7 +63,8 @@
               "browserTarget": "web-library:build:production"
             },
             "development": {
-              "browserTarget": "web-library:build:development"
+              "browserTarget": "web-library:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

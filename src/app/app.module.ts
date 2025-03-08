@@ -7,6 +7,18 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { BookListComponent } from './book-list/book-list.component';
+import { BookComponent } from './book/book.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FiltersComponent } from './filters/filters.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { InfiniteScrollDirective } from './infinite-scroll.directive';
+import { BookDetailsPageComponent } from './book-details-page/book-details-page.component';
+import { BookDetailsComponent } from './book-details/book-details.component';
+import { BookScrollComponent } from './book-scroll/book-scroll.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
+import { BookUploadPageComponent } from './book-upload-page/book-upload-page.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +26,23 @@ import { HomeComponent } from './home/home.component';
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    BookListComponent,
+    BookComponent,
+    FiltersComponent,
+    HomepageComponent,
+    ProfilePageComponent,
+    InfiniteScrollDirective,
+    BookDetailsPageComponent,
+    BookDetailsComponent,
+    BookScrollComponent,
+    CategoryPageComponent,
+    BookUploadPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

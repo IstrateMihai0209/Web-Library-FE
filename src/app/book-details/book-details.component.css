@@ -1,0 +1,93 @@
+.book-container {
+    display: flex;
+    align-items: flex-start;
+    margin: 20px 20px 20px 0px;
+}
+
+.book-cover {
+    margin-right: 20px;
+}
+
+.book-cover img {
+    border: 1.25px solid;
+    border-radius: 3.5px;
+    width: 135px;
+    height: 200px;
+}
+
+.book-actions {
+    display: block;
+    width: 135px;
+}
+
+#read {
+    background-color: #D7F583;
+}
+
+#read:hover {
+    background-color: #CDEB7E;
+}
+
+#wishlist {
+    background-color: #B5B682;
+}
+
+#wishlist:hover {
+    background-color: #A9AA7A;
+}
+
+.book-description {
+    flex: 1;
+}
+
+.center-info {
+   margin: 0 auto;
+}
+
+.book-details {
+    display: flex;
+    gap: 10px;
+}
+
+.detail-item {
+    display: inline-block;
+    background-color: #fff9e6;
+    border-radius: 5px;
+    justify-content: center;
+    text-align: center;
+    margin-right: 40px;
+}
+
+.detail-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.detail-type {
+    display: block;
+    font-size: 0.8em;
+    color: #666;
+    border-top: .5px solid #ddd;
+    padding-top: 5px;
+}
+
+.book-details span {
+    background-color: #FFE7B1;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #d4edda;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.more-info {
+    display: block;
+}

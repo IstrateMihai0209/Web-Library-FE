@@ -19,6 +19,8 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookScrollComponent } from './book-scroll/book-scroll.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
 import { BookUploadPageComponent } from './book-upload-page/book-upload-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { BookUploadPageComponent } from './book-upload-page/book-upload-page.com
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

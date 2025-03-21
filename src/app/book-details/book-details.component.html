@@ -1,9 +1,28 @@
-<div class="book-container">
+<div class="book-container" *ngIf="!isLoading">
     <div class="book-cover">
         <img [src]="book.coverImage" [alt]="book.title">
         <div class="book-actions">
             <button id="read">Read</button>
-            <button id="wishlist">Add to wishlist</button>
+            <div class="wishlist" *ngIf="!isBookMarkedAsRead">
+                <button [id]="wishlistButtonId" *ngIf="book.userId !== bookService.userId" (click)="addOrRemoveFromWishlist()">
+                    <p *ngIf="!isBookInWishlist; else remove">
+                        Add to wishlist
+                    </p>
+                    <ng-template #remove>
+                        Remove from wishlist
+                    </ng-template>
+                </button>
+            </div>
+            <button [id]="markAsReadButtonId" *ngIf="book.userId !== bookService.userId" (click)="markOrUnmarkAsRead()">
+                <p *ngIf="!isBookMarkedAsRead; else remove">
+                    Mark as read
+                </p>
+                <ng-template #remove>
+                    Unmark as read
+                </ng-template>
+            </button>
+            <button id="normal-button" *ngIf="book.userId === bookService.userId">Update details</button>
+            <button id="delete" *ngIf="book.userId === bookService.userId">Delete book</button>
         </div>
     </div>
     <div class="book-description">

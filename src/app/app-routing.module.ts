@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { BookDetailsPageComponent } from './book-details-page/book-details-page.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
+import { BookUploadPageComponent } from './book-upload-page/book-upload-page.component';
 
 const routes: Routes = [
   { path: 'home', component: HomepageComponent, title: 'Home - WebLibrary' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfilePageComponent, title: 'Profile' },
   { path: 'book/:id', component: BookDetailsPageComponent, title: 'Book Details' },
   { path: 'categories', component: CategoryPageComponent, title: 'Categories'},
+  { path: 'upload', component: BookUploadPageComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

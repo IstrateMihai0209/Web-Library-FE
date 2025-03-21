@@ -1,1 +1,87 @@
-<p>book-upload-page works!</p>
+<div class="center">
+    <form [formGroup]="bookForm" class="book-upload-form" (ngSubmit)="onSubmit()">
+        <h2>Upload new book</h2>
+    
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" formControlName="title">
+            <em class="error" *ngIf="bookForm.get('title')?.invalid && (bookForm.get('title')?.touched || submitted)">
+                Title is required
+            </em>
+        </div>
+    
+        <div class="form-group">
+            <label>Author</label>
+            <input type="text" formControlName="author">
+            <em *ngIf="bookForm.get('author')?.invalid && (bookForm.get('author')?.touched|| submitted)" class="error">
+                Author is required
+            </em>
+        </div>
+    
+        <div class="form-group">
+            <label>Publisher</label>
+            <input type="text" formControlName="publisher">
+            <em *ngIf="bookForm.get('publisher')?.invalid && (bookForm.get('publisher')?.touched || submitted)" class="error">
+                Publisher is required
+            </em>
+        </div>
+
+        <div class="form-group">
+            <label>Genre</label>
+            <input type="text" formControlName="genre">
+            <em *ngIf="bookForm.get('genre')?.invalid && (bookForm.get('genre')?.touched || submitted)" class="error">
+                Genre is required
+            </em>
+        </div>
+    
+        <div class="form-group">
+            <label>Book description</label>
+            <textarea formControlName="description"></textarea>
+            <em *ngIf="bookForm.get('description')?.invalid && (bookForm.get('description')?.touched || submitted)" class="error">
+                Description is required
+            </em>
+        </div>
+
+        <div class="form-group">
+            <label>Publish Year</label>
+            <input type="text" formControlName="publishYear">
+            <em *ngIf="bookForm.get('publishYear')?.invalid && (bookForm.get('publishYear')?.touched || submitted)" class="error">
+                Publish Year is required
+            </em>
+        </div>
+
+        <div class="form-group">
+            <label>More info about the author</label>
+            <textarea formControlName="moreAboutAuthor"></textarea>
+            <div *ngIf="bookForm.get('moreAboutAuthor')?.invalid && (bookForm.get('moreAboutAuthor')?.touched || submitted)" class="error">
+                Author info is required
+            </div>
+        </div>
+    
+        <div class="file-upload-group">
+            <div class="file-upload">
+                <label>Cover Image</label>
+                <input type="file" accept="image/*" (change)="onCoverImageSelected($event)">
+                <div class="file-info" *ngIf="coverImageFile">
+                    Selected: {{ coverImageFile!.name }}
+                </div>
+                <div class="error" *ngIf="!coverImageFile && submitted">
+                    Cover image is required
+                </div>
+            </div>
+    
+            <div class="file-upload">
+                <label>Text File (PDF)</label>
+                <input type="file" accept="application/pdf" (change)="onTextFileSelected($event)">
+                <div class="file-info" *ngIf="textFile">
+                    Selected: {{ textFile!.name }}
+                </div>
+                <div class="error" *ngIf="!textFile && submitted">
+                    PDF file is required
+                </div>
+            </div>
+        </div>
+    
+        <button type="submit" class="submit-button">Add Book</button>
+    </form>
+</div>

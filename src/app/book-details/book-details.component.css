@@ -28,12 +28,24 @@
     background-color: #CDEB7E;
 }
 
-#wishlist {
+#normal-button {
     background-color: #B5B682;
 }
 
-#wishlist:hover {
+#normal-button:hover {
     background-color: #A9AA7A;
+}
+
+#delete {
+    background-color: #DD6358;
+}
+
+#delete:hover {
+    background-color: #C1564D;
+}
+
+p {
+    margin: 0;
 }
 
 .book-description {

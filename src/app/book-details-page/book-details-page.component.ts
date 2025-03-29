@@ -37,6 +37,6 @@ export class BookDetailsPageComponent implements OnInit {
       error: (error) => {
         console.error('Error fetching book details: ', error);
       }
-    })
+    });
   }
 }

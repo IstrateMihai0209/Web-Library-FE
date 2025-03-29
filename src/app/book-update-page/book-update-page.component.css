@@ -1,0 +1,43 @@
+.book-update-form {
+    padding: 2rem;
+    font-family: roboto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 0.7px solid black;
+    border-radius: 5px;
+}
+
+textarea {
+    height: 150px;
+    resize: none;
+}
+
+.submit-button {
+    background-color: #CDEB7E;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #BED975;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}

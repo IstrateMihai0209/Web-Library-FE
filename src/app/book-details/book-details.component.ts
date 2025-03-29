@@ -2,8 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IBookModel } from '../book/book.model';
 import { BookService } from '../book/book.service';
 import { IWishlistModel } from '../book/wishlist.model';
-import { HttpEventType } from '@angular/common/http';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { IReadBooksModel } from '../book/read.books.model';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-book-details',
@@ -18,7 +21,7 @@ export class BookDetailsComponent implements OnInit {
   wishlistButtonId: string = "";
   markAsReadButtonId: string = "";
 
-  constructor (public bookService: BookService) {}
+  constructor (public bookService: BookService, public dialog: MatDialog, private router: Router) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -26,7 +29,10 @@ export class BookDetailsComponent implements OnInit {
       this.checkIfBookIsMarkedAsRead();
       this.isLoading = false;
     }, 500);
-    
+  }
+
+  readBook() {
+    this.router.navigate(['/read', this.book.id]);
   }
 
   getYearOfDate(date: Date): Number {
@@ -34,33 +40,35 @@ export class BookDetailsComponent implements OnInit {
     return new Date(publishDate).getFullYear();
   }
 
-  checkIfBookIsInWishlist(): void {
-    this.bookService.isBookInWishlist(this.book.id).subscribe(
-      (response) => {
-        this.isBookInWishlist = true;
-        this.wishlistButtonId = 'delete';
-      },
-      (error) => {
-        this.isBookInWishlist = false;
-        this.wishlistButtonId = 'normal-button';
+  checkIfBookIsInWishlist() {
+    this.bookService.isBookInWishlist(this.book.id).subscribe({
+      next: (response: HttpResponse<any>) => {
+        if (response.status === 200) {
+          this.isBookInWishlist = true;
+          this.wishlistButtonId = 'delete';
+        } else if (response.status === 204) {
+          this.isBookInWishlist = false;
+          this.wishlistButtonId = 'normal-button';
+        }
       }
-    );
+    });
   }
 
-  checkIfBookIsMarkedAsRead(): void {
-    this.bookService.isBookMarkedAsRead(this.book.id).subscribe(
-      (response) => {
-        this.isBookMarkedAsRead = true;
-        this.markAsReadButtonId = 'delete';
-      },
-      (error) => {
-        this.isBookMarkedAsRead = false;
-        this.markAsReadButtonId = 'normal-button';
+  checkIfBookIsMarkedAsRead() {
+    this.bookService.isBookMarkedAsRead(this.book.id).subscribe({
+      next: (response: HttpResponse<any>) => {
+        if (response.status === 200) {
+          this.isBookMarkedAsRead = true;
+          this.markAsReadButtonId = 'delete';
+        } else if (response.status === 204) {
+          this.isBookMarkedAsRead = false;
+          this.markAsReadButtonId = 'normal-button';
+        }
       }
-    )
+    });
   }
 
-  addOrRemoveFromWishlist(): void {
+  addOrRemoveFromWishlist() {
     if(!this.isBookInWishlist) {
       const wishlist = {} as IWishlistModel;
       wishlist.Books = new Array<IBookModel>();
@@ -88,7 +96,7 @@ export class BookDetailsComponent implements OnInit {
     }
   }
 
-  markOrUnmarkAsRead(): void {
+  markOrUnmarkAsRead() {
     if(!this.isBookMarkedAsRead) {
       const readBooks = {} as IReadBooksModel;
       readBooks.Books = new Array<IBookModel>();
@@ -114,5 +122,31 @@ export class BookDetailsComponent implements OnInit {
         (error) => console.error('Error unmarking book as read: ', error)
       );
     }
+  }
+
+  confirmDeletion() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteBook();
+      }
+    })
+  }
+
+  deleteBook() {
+      this.bookService.deleteBook(this.book.id).subscribe({
+        next: () => {
+          console.log('Book removed from library');
+          this.router.navigate(['/profile']);
+        },
+        error: (err) => {
+          console.error('An error appeared while removing book', err);
+        }
+      });
+  }
+
+  editBook() {
+    this.router.navigate(['/edit', this.book.id]);
   }
 }

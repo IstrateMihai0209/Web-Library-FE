@@ -21,6 +21,13 @@ import { CategoryPageComponent } from './category-page/category-page.component';
 import { BookUploadPageComponent } from './book-upload-page/book-upload-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { ExamplePdfViewerComponent } from "./example-pdf-viewer/example-pdf-viewer.component";
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { BookUpdatePageComponent } from './book-update-page/book-update-page.component';
+import { PdfReaderComponent } from './pdf-reader/pdf-reader.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +46,9 @@ import { CommonModule } from '@angular/common';
     BookDetailsComponent,
     BookScrollComponent,
     CategoryPageComponent,
-    BookUploadPageComponent
+    BookUploadPageComponent,
+    ConfirmationDialogComponent,
+    BookUpdatePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +56,12 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-  ],
+    NgxExtendedPdfViewerModule,
+    ExamplePdfViewerComponent,
+    MatDialogModule,
+    MatButtonModule,
+    PdfReaderComponent,
+],
   providers: [],
   bootstrap: [AppComponent]
 })

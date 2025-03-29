@@ -1,0 +1,87 @@
+<div class="center">
+    <form [formGroup]="editForm" class="book-update-form" (ngSubmit)="onSubmit()">
+        <h2>Update "{{ title }}"</h2>
+    
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" formControlName="title">
+            <em class="error" *ngIf="editForm.get('title')?.invalid && (editForm.get('title')?.touched || submitted)">
+                Title is required
+            </em>
+        </div>
+    
+        <div class="form-group">
+            <label>Author</label>
+            <input type="text" formControlName="author">
+            <em *ngIf="editForm.get('author')?.invalid && (editForm.get('author')?.touched|| submitted)" class="error">
+                Author is required
+            </em>
+        </div>
+    
+        <div class="form-group">
+            <label>Publisher</label>
+            <input type="text" formControlName="publisher">
+            <em *ngIf="editForm.get('publisher')?.invalid && (editForm.get('publisher')?.touched || submitted)" class="error">
+                Publisher is required
+            </em>
+        </div>
+
+        <div class="form-group">
+            <label>Genre</label>
+            <input type="text" formControlName="genre">
+            <em *ngIf="editForm.get('genre')?.invalid && (editForm.get('genre')?.touched || submitted)" class="error">
+                Genre is required
+            </em>
+        </div>
+    
+        <div class="form-group">
+            <label>Book description</label>
+            <textarea formControlName="description"></textarea>
+            <em *ngIf="editForm.get('description')?.invalid && (editForm.get('description')?.touched || submitted)" class="error">
+                Description is required
+            </em>
+        </div>
+
+        <div class="form-group">
+            <label>Publish Year</label>
+            <input type="text" formControlName="publishYear" min="0" max="2025">
+            <em *ngIf="editForm.get('publishDate')?.invalid && (editForm.get('publishDate')?.touched || submitted)" class="error">
+                Publish Year is required
+            </em>
+        </div>
+
+        <div class="form-group">
+            <label>More info about the author</label>
+            <textarea formControlName="moreAboutAuthor"></textarea>
+            <div *ngIf="editForm.get('moreAboutAuthor')?.invalid && (editForm.get('moreAboutAuthor')?.touched || submitted)" class="error">
+                Author info is required
+            </div>
+        </div>
+    
+        <!-- <div class="file-upload-group">
+            <div class="file-upload">
+                <label>Cover Image</label>
+                <input type="file" accept="image/*" (change)="onCoverImageSelected($event)">
+                <div class="file-info" *ngIf="coverImageFile">
+                    Selected: {{ coverImageFile!.name }}
+                </div>
+                <div class="error" *ngIf="!coverImageFile && submitted">
+                    Cover image is required
+                </div>
+            </div>
+    
+            <div class="file-upload">
+                <label>Text File (PDF)</label>
+                <input type="file" accept="application/pdf" (change)="onTextFileSelected($event)">
+                <div class="file-info" *ngIf="textFile">
+                    Selected: {{ textFile!.name }}
+                </div>
+                <div class="error" *ngIf="!textFile && submitted">
+                    PDF file is required
+                </div>
+            </div>
+        </div> -->
+    
+        <button type="submit" class="submit-button">Update Book</button>
+    </form>
+</div>

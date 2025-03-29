@@ -7,7 +7,6 @@ export interface IBookModel {
     genre: string;
     description: string;
     publishDate: Date;
-    categoryId: number;
     filePath: string;
     uploadedAt: Date;
     userId: number;    
@@ -22,5 +21,5 @@ export interface IBookUploadData {
     moreAboutAuthor: string;
     genre: string;
     description: string;
-    publishYear: number;
+    publishDate: Date;
 }

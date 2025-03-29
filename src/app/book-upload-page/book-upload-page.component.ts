@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IBookUploadData } from '../book/book.model';
 import { BookService } from '../book/book.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-book-upload-page',
@@ -18,17 +19,18 @@ export class BookUploadPageComponent {
     author: '',
     genre: '',
     publisher: '',
-    publishYear: -1,
+    publishDate: new Date(),
     moreAboutAuthor: '',
     description: '',
   }
 
-  constructor(private formBuilder: FormBuilder, private bookService: BookService) {
+  constructor(private formBuilder: FormBuilder, private bookService: BookService, private router: Router) {
     this.bookForm = this.formBuilder.group({
       title: ['', Validators.required],
       author: ['', Validators.required],
       publisher: ['', Validators.required],
-      publishYear: ['', Validators.required],
+      publishDate: [''],
+      publishYear: [new Date().getFullYear(), Validators.required],
       genre: ['', Validators.required],
       description: ['', Validators.required],
       moreAboutAuthor: [''],
@@ -60,26 +62,27 @@ export class BookUploadPageComponent {
       formData.append('Publisher', this.bookForm.get('publisher')?.value);
       formData.append('Genre', this.bookForm.get('genre')?.value);
       formData.append('Description', this.bookForm.get('description')?.value);
-      formData.append('PublishYear', this.bookForm.get('publishYear')?.value);
+      formData.append('PublishDate', new Date(this.bookForm.get('publishYear')?.value, 1, 1).toISOString());
       formData.append('MoreAboutAuthor', this.bookForm.get('moreAboutAuthor')?.value);
-      formData.append('CoverImage', this.coverImageFile, this.bookForm.get('title')?.value.toLowerCase().replace(' ', '-'));
-      formData.append('TextFile', this.textFile, this.bookForm.get('title')?.value.toLowerCase().replace(' ', '-'));
+      formData.append('CoverImage', this.coverImageFile, this.bookForm.get('title')?.value.toLowerCase());
+      formData.append('TextFile', this.textFile, this.bookForm.get('title')?.value.toLowerCase());
 
       console.log('Uploading book');
       this.bookService.uploadBook(formData).subscribe({
-        next: (event) => {
+        next: (response) => {
           this.bookForm.reset();
           this.submitted = false;
           this.coverImageFile = null;
           this.textFile = null;
 
-          //TODO: Redirect to success page or other page or show message in the upload page
+          console.log('redirecting to new book page');
+          this.router.navigate(['/book', response.id]);
         },
         error: (err) => {
           console.error('Upload failed', err);
         },
         complete: () => {
-          
+          console.log('Book uploaded!');
         }
       });
     } else {

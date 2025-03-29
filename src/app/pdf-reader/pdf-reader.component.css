@@ -1,0 +1,23 @@
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+
+    ngx-extended-pdf-viewer,
+    ngx-extended-pdf-viewer * {
+        display: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}
+
+::ng-deep .prevent-context-menu {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+::ng-deep .prevent-context-menu .page {
+    pointer-events: none;
+}

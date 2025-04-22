@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { BookUpdatePageComponent } from './book-update-page/book-update-page.component';
 import { PdfReaderComponent } from './pdf-reader/pdf-reader.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { PdfReaderComponent } from './pdf-reader/pdf-reader.component';
     BookUploadPageComponent,
     ConfirmationDialogComponent,
     BookUpdatePageComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 <div class="center">
-    <lib-book-list class="book-list" [endpoint]="'profile'"></lib-book-list>
+    <lib-book-list class="book-list" [loadBooksFn]="loadBooksFn"></lib-book-list>
     <div class="profile-sections">
         <button id="reading" (click)="setFilter('reading'); highlightButton('reading');" [class.active]="currentFilter === 'reading'">Currently Reading</button>
         <button id="wishlist" (click)="setFilter('wishlist'); highlightButton('wishlist');" [class.active]="currentFilter === 'wishlist'">Wishlist</button>

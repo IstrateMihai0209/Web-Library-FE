@@ -1,0 +1,18 @@
+<div class="search-bar">
+    <div class="label">
+        <label for="searchQuery">Browse</label>
+    </div>
+    <input 
+        id="searchQuery" 
+        type="text" 
+        [(ngModel)]="searchQuery"
+        (input)="onSearchInputChange($event)"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        #searchInput />
+    <button type="button" (click)="search()">
+        <img src="../assets/images/search-button.png" alt="Search Icon" />
+    </button>
+</div>

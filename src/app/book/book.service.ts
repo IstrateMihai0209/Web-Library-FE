@@ -145,6 +145,14 @@ export class BookService {
     return this.http.delete('api/book', { params });
   }
 
+  searchBooks(searchQuery: string, filters: { [key: string]: string[] }, pageNumber: number): Observable<IBookModel[]> {
+    let params = new HttpParams()
+      .set('searchQuery', searchQuery)
+      .set('pageNumber', pageNumber.toString());
+
+    return this.http.post<IBookModel[]>('api/book/search', filters, { params });
+  }
+
   private assignMainUserParams(userId: number, pageNumber: number): HttpParams {
     return new HttpParams()
       .set('userId', userId)

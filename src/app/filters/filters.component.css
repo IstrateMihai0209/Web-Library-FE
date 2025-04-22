@@ -1,4 +1,4 @@
-.filters-container {
+/* .filters-container {
     padding: 20px;
     width: 250px;
     text-align: left;
@@ -12,4 +12,81 @@
 .filters-section ul li {
     margin-bottom: 5px;
     list-style-type: none;
+} */
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    padding: 20px;
+}
+
+.filter-category { 
+    margin-bottom: 15px;
+}
+
+.btn-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.btn-toggle.active {
+    background-color: #0056b3;
+}
+
+.filter-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.filter-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
+.btn-add {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.selectedFilters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.filter-chip {
+    background-color: #e9ecef;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 16px;
 }

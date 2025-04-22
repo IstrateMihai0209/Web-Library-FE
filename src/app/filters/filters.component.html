@@ -1,31 +1,34 @@
 <div class="filters-container">
-    <h3>Filter Options</h3>
-    <div class="filters-section">
-        <h4>Author</h4>
-        <ul>
-            <li><input type="checkbox" id="author1">Author 1</li>
-            <li><input type="checkbox" id="author2">Author 2</li>
-        </ul>
-    </div>
-    <div class="filters-section">
-        <h4>Genre</h4>
-        <ul>
-            <li><input type="checkbox" id="author1">Genre 1</li>
-            <li><input type="checkbox" id="author2">Genre 2</li>
-        </ul>
-    </div>
-    <div class="filters-section">
-        <h4>Year</h4>
-        <ul>
-            <li><input type="checkbox" id="author1">Year 1</li>
-            <li><input type="checkbox" id="author2">Year 2</li>
-        </ul>
-    </div>
-    <div class="filters-section">
-        <h4>Language</h4>
-        <ul>
-            <li><input type="checkbox" id="author1">Language 1</li>
-            <li><input type="checkbox" id="author2">Language 2</li>
-        </ul>
+    <div class="filter-category" *ngFor="let category of categories">
+        <button
+            class="btn-toggle"
+            (click)="toggleInput(category.key)"
+            [class.active]="visibleInputs[category.key]"
+        >
+        {{ category.label }}
+        </button>
+
+        <div class="filter-input" *ngIf="visibleInputs[category.key]">
+            <input
+                type="text"
+                #newFilterInput
+                (keyup.enter)="addFilter(category.key, newFilterInput.value)"
+            >
+            <button
+                class="btn-add"
+                (click)="addFilter(category.key, newFilterInput.value)"
+            >
+            Add
+            </button>
+        </div>
+
+        <div class="selectedFilters" *ngIf="selectedFilters.get(category.key)?.size">
+            <div class="filter-chip" *ngFor="let value of selectedFilters.get(category.key)">
+                {{ value }}
+                <button class="btn-remove" (click)="removeFilter(category.key, value)">
+                    &times;
+                </button>
+            </div>
+        </div>
     </div>
 </div>

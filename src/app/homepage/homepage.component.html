@@ -1,4 +1,5 @@
+<lib-search-bar (searchSubmitted)="handleSearch($event)"></lib-search-bar>
 <div class="center">
-    <lib-book-list class="book-list" [endpoint]="'homepage'"></lib-book-list>
-    <lib-filters class="filters"></lib-filters>
+    <lib-book-list class="book-list" [loadBooksFn]="loadBooksFn"></lib-book-list>
+    <lib-filters class="filters" (filtersChanged)="onFiltersChanged($event)"></lib-filters>
 </div>

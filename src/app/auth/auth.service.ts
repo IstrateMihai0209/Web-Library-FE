@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'environment';
 import { BehaviorSubject, catchError, distinctUntilChanged, filter, finalize, map, Observable, of, take, tap, throwError } from 'rxjs';
 
 @Injectable({
@@ -43,13 +44,13 @@ export class AuthService {
       return throwError(() => 'Already logged in!');
     }
 
-    return this.http.post('api/auth/login', credentials, { withCredentials: true }).pipe(
+    return this.http.post(`${environment.apiUrl}/auth/login`, credentials, { withCredentials: true }).pipe(
       tap(() => this.initializeAuthState())
     );
   }
 
   logout(): Observable<void> {
-    return this.http.post<void>('api/auth/logout', {}, { withCredentials: true }).pipe(
+    return this.http.post<void>(`${environment.apiUrl}/auth/logout`, {}, { withCredentials: true }).pipe(
       tap(() => {
         this.currentUserSubject.next(null);
         this.router.navigate(['/login']);
@@ -66,15 +67,15 @@ export class AuthService {
       return throwError(() => 'Already logged in!');
     }
 
-    return this.http.post('api/auth/register', user);
+    return this.http.post(`${environment.apiUrl}/auth/register`, user);
   }
 
   loginWithGoogle() {
-    window.location.href = 'https://localhost:7242/api/auth/external-login?provider=Google';
+    window.location.href = 'https://weblibrary-dgaqc2f6etd6b4e5.polandcentral-01.azurewebsites.net/api/auth/external-login?provider=Google';
   }
 
   handleSocialCallback(): Observable<boolean> {
-    return this.http.get('api/auth/userinfo', { withCredentials: true }).pipe(
+    return this.http.get(`${environment.apiUrl}/auth/userinfo`, { withCredentials: true }).pipe(
       tap(user => {
         this.currentUserSubject.next(user);
         this.router.navigate(['/home']);
@@ -85,7 +86,7 @@ export class AuthService {
   }
 
   private initializeAuthState() {
-    this.http.get<any>('api/auth/userinfo', { withCredentials: true })
+    this.http.get<any>(`${environment.apiUrl}/auth/userinfo`, { withCredentials: true })
       .pipe(
         finalize(() => this.authCheckedSubject.next(true))
       )

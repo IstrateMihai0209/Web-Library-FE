@@ -5,6 +5,7 @@ import { NavigationStateService } from '../navigation-state.service';
 import { browserRefresh } from '../app.component';
 import { IBookModel } from '../book/book.model';
 import { BookService } from '../book/book.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'lib-profile-page',
@@ -13,6 +14,9 @@ import { BookService } from '../book/book.service';
 })
 export class ProfilePageComponent implements AfterViewInit, OnDestroy {
   currentFilter: string = 'reading';
+  profileId: string | null = '';
+  error: string | null = null;
+
   private routerSubscription: Subscription = new Subscription();
   private browserRefresh: boolean = false;
 
@@ -21,24 +25,36 @@ export class ProfilePageComponent implements AfterViewInit, OnDestroy {
   constructor(
       private router: Router,
       private route: ActivatedRoute,
-      private subscription: NavigationStateService,
-      private bookService: BookService
+      private bookService: BookService,
+      private authService: AuthService
     ) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const userId = params.get('userId');
+      if (userId) {
+        this.profileId = userId;
+        this.currentFilter = 'reading';
+        this.loadBooksFn = this.getLoadBooksFn(this.currentFilter);
+      } else {
+        this.error = 'Invalid profile ID';
+      }
+    })
+
     this.route.queryParams.subscribe(params => {
       this.currentFilter = params['filter'] || 'reading';
       this.loadBooksFn = this.getLoadBooksFn(this.currentFilter);
     });
+
   }
 
   ngAfterViewInit() {
-    this.browserRefresh = browserRefresh;
-    console.log('refreshed?:', this.browserRefresh);
+    // this.browserRefresh = browserRefresh;
+    // console.log('refreshed?:', this.browserRefresh);
 
-    if (this.browserRefresh) {
-      this.restoreActiveButton();
-    }
+    // if (this.browserRefresh) {
+    //   this.restoreActiveButton();
+    // }
   }
 
   ngOnDestroy(): void {
@@ -58,13 +74,13 @@ export class ProfilePageComponent implements AfterViewInit, OnDestroy {
   {
     switch (filter) {
       case 'reading':
-        return (page) => this.bookService.getReadingHistoryOfUser(this.bookService.userId, page);
+        return (page) => this.bookService.getReadingHistoryOfUser(this.profileId, page);
       case 'wishlist':
-        return (page) => this.bookService.getUserWishlist(this.bookService.userId, page);
+        return (page) => this.bookService.getUserWishlist(this.profileId, page);
       case 'uploads':
-        return (page) => this.bookService.getBooksByUploader(this.bookService.userId, page);
+        return (page) => this.bookService.getBooksByUploader(this.profileId, page);
       case 'already-read':
-        return (page) => this.bookService.getBooksMarkedAsReadByUser(this.bookService.userId, page);
+        return (page) => this.bookService.getBooksMarkedAsReadByUser(this.profileId, page);
       default:
         return () => new Observable(subscriber => subscriber.next([]));
     }

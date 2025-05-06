@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IBookUploadData } from '../book/book.model';
 import { BookService } from '../book/book.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'lib-book-upload-page',
@@ -24,7 +25,7 @@ export class BookUploadPageComponent {
     description: '',
   }
 
-  constructor(private formBuilder: FormBuilder, private bookService: BookService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private bookService: BookService, private authService: AuthService, private router: Router) {
     this.bookForm = this.formBuilder.group({
       title: ['', Validators.required],
       author: ['', Validators.required],
@@ -56,7 +57,9 @@ export class BookUploadPageComponent {
 
     if (this.bookForm.valid && this.coverImageFile && this.textFile) {
       const formData = new FormData();
-      formData.append('UploaderId', this.bookService.userId.toString());
+      const userId = this.authService.userId ? this.authService.userId : '';
+
+      formData.append('UploaderId', userId);
       formData.append('Title', this.bookForm.get('title')?.value);
       formData.append('Author', this.bookForm.get('author')?.value);
       formData.append('Publisher', this.bookForm.get('publisher')?.value);

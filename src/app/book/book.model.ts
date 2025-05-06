@@ -9,7 +9,7 @@ export interface IBookModel {
     publishDate: Date;
     filePath: string;
     uploadedAt: Date;
-    userId: number;    
+    userId: string | null;    
     coverImage: string;
     popularity: number;
 }

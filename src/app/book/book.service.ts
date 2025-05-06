@@ -5,6 +5,7 @@ import { delay, map } from 'rxjs/operators';
 import { IBookModel } from './book.model';
 import { IWishlistModel } from './wishlist.model';
 import { IReadBooksModel } from './read.books.model';
+import { IReadingHistoryModel } from './reading.history.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,21 +27,23 @@ export class BookService {
     return this.http.get<IBookModel[]>('/api/book/top-popular', { params });
   }
 
-  getBooksByUploader(uploaderId: number, pageNumber: number = 1): Observable<IBookModel[]> {
+  getBooksByUploader(uploaderId: string | null, pageNumber: number = 1): Observable<IBookModel[]> {
     let params = this.assignMainUserParams(uploaderId, pageNumber);
 
     return this.http.get<IBookModel[]>('/api/book/uploader', { params });
   }
 
-  getReadingHistoryOfUser(userId: number, pageNumber: number = 1): Observable<IBookModel[]> {
-    let params = this.assignMainUserParams(userId, pageNumber);
+  getReadingHistoryOfUser(userId: string | null, pageNumber: number = 1): Observable<IBookModel[]> {
+    let params = new HttpParams()
+      .set('userId', userId ? userId : '')
+      .set('pageNumber', pageNumber.toString());
 
     return this.http.get<any>('/api/reading-history', { params }).pipe(
       map((response => response.books))
     );
   }
 
-  getUserWishlist(userId: number, pageNumber: number = 1): Observable<IBookModel[]> {
+  getUserWishlist(userId: string | null, pageNumber: number = 1): Observable<IBookModel[]> {
     let params = this.assignMainUserParams(userId, pageNumber);
 
     return this.http.get<any>('/api/wishlist', { params }).pipe(
@@ -48,7 +51,7 @@ export class BookService {
     );
   }
 
-  getBooksMarkedAsReadByUser(userId: number, pageNumber: number = 1): Observable<IBookModel[]> {
+  getBooksMarkedAsReadByUser(userId: string | null, pageNumber: number = 1): Observable<IBookModel[]> {
     let params = this.assignMainUserParams(userId, pageNumber);
 
     return this.http.get<any>('/api/read-books', { params }).pipe(
@@ -76,9 +79,19 @@ export class BookService {
     return this.http.put<IBookModel>('api/book', bookDto, { params });  
   }
 
-  addBookToWishlist(wishlistDto: IWishlistModel) {
+  addBookToReadingHistory(userId: string | null, readingHistoryDto: IReadingHistoryModel) {
+    let params = new HttpParams().set('userId', userId ? userId : '');
+
+    return this.http.put('api/reading-history/read', readingHistoryDto, {
+      params: params,
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+  addBookToWishlist(userId: string | null, wishlistDto: IWishlistModel) {
     let params = new HttpParams()
-      .set('userId', this.userId.toString());
+      .set('userId', userId ? userId : '');
 
     return this.http.put('/api/wishlist/add-book', wishlistDto, {
       params: params, 
@@ -87,9 +100,9 @@ export class BookService {
     });
   }
 
-  removeBookFromWishlist(bookId: number) {
+  removeBookFromWishlist(userId: string | null, bookId: number) {
     let params = new HttpParams()
-      .set('userId', this.userId.toString())
+      .set('userId', userId ? userId : '')
       .set('bookId', bookId.toString());
 
       return this.http.put('/api/wishlist/remove-book', "", {
@@ -99,17 +112,17 @@ export class BookService {
       });
   }
 
-  isBookInWishlist(bookId: number) {
+  isBookInWishlist(userId: string | null, bookId: number) {
     let params = new HttpParams()
-      .set('userId', this.userId.toString())
+      .set('userId', userId ? userId : '')
       .set('bookId', bookId.toString());
 
     return this.http.get('/api/wishlist/is-book-in-wishlist', {params, observe: 'response'});
   }
 
-  markBookAsRead(readBooksDto: IReadBooksModel) {
+  markBookAsRead(userId: string | null, readBooksDto: IReadBooksModel) {
     let params = new HttpParams()
-      .set('userId', this.userId.toString());
+      .set('userId', userId ? userId : '');
 
     return this.http.put('api/read-books/add', readBooksDto, {
       params: params,
@@ -118,9 +131,9 @@ export class BookService {
     });
   }
 
-  unmarkBookAsRead(bookId: number) {
+  unmarkBookAsRead(userId: string | null, bookId: number) {
     let params = new HttpParams()
-      .set('userId', this.userId.toString())
+      .set('userId', userId ? userId : '')
       .set('bookId', bookId.toString());
 
     return this.http.put('api/read-books/remove', "", {
@@ -130,9 +143,9 @@ export class BookService {
     });
   }
 
-  isBookMarkedAsRead(bookId: number) {
+  isBookMarkedAsRead(userId: string | null, bookId: number) {
     let params = new HttpParams()
-      .set('userId', this.userId.toString())
+      .set('userId', userId ? userId : '')
       .set('bookId', bookId.toString());
 
     return this.http.get('api/read-books/is-marked-as-read', { params, observe: 'response' });
@@ -153,9 +166,9 @@ export class BookService {
     return this.http.post<IBookModel[]>('api/book/search', filters, { params });
   }
 
-  private assignMainUserParams(userId: number, pageNumber: number): HttpParams {
+  private assignMainUserParams(userId: string | null, pageNumber: number): HttpParams {
     return new HttpParams()
-      .set('userId', userId)
+      .set('userId', userId ? userId : '')
       .set('pageNumber', pageNumber.toString());
   }
 

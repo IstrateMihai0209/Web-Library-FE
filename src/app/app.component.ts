@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NavigationStateService } from './navigation-state.service';
+import { AuthService } from './auth/auth.service';
 
 export let browserRefresh = false;
 
@@ -10,14 +11,21 @@ export let browserRefresh = false;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'web-library';
   subscription: Subscription;
   
-  constructor(private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         browserRefresh = !router.navigated;
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.authService.isAuthCheckComplete.subscribe(() => {
+      if (this.authService.isUserAuthenticated) {
       }
     });
   }

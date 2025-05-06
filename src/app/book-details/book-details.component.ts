@@ -7,6 +7,7 @@ import { IReadBooksModel } from '../book/read.books.model';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'lib-book-details',
@@ -18,10 +19,15 @@ export class BookDetailsComponent implements OnInit {
   isBookInWishlist: boolean = false;
   isBookMarkedAsRead: boolean = false;
   isLoading: boolean = true;
+  showUserActions: boolean = false;
   wishlistButtonId: string = "";
   markAsReadButtonId: string = "";
 
-  constructor (public bookService: BookService, public dialog: MatDialog, private router: Router) {}
+  constructor (
+    public bookService: BookService,
+    public authService: AuthService,
+    public dialog: MatDialog, 
+    private router: Router) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -29,6 +35,14 @@ export class BookDetailsComponent implements OnInit {
       this.checkIfBookIsMarkedAsRead();
       this.isLoading = false;
     }, 500);
+
+    this.authService.isAuthCheckComplete.subscribe(() => {
+      if (this.authService.isUserAuthenticated) {
+        this.showUserActions = true;
+      } else {
+        this.showUserActions = false;
+      }
+    });
   }
 
   readBook() {
@@ -41,7 +55,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   checkIfBookIsInWishlist() {
-    this.bookService.isBookInWishlist(this.book.id).subscribe({
+    this.bookService.isBookInWishlist(this.authService.userId, this.book.id).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.status === 200) {
           this.isBookInWishlist = true;
@@ -55,7 +69,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   checkIfBookIsMarkedAsRead() {
-    this.bookService.isBookMarkedAsRead(this.book.id).subscribe({
+    this.bookService.isBookMarkedAsRead(this.authService.userId, this.book.id).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.status === 200) {
           this.isBookMarkedAsRead = true;
@@ -74,7 +88,7 @@ export class BookDetailsComponent implements OnInit {
       wishlist.Books = new Array<IBookModel>();
       wishlist.Books.push(this.book);
   
-      this.bookService.addBookToWishlist(wishlist).subscribe(
+      this.bookService.addBookToWishlist(this.authService.userId, wishlist).subscribe(
         (event) => {
           if (event.type === HttpEventType.Response) {
             this.isBookInWishlist = true;
@@ -84,7 +98,7 @@ export class BookDetailsComponent implements OnInit {
         (error) => console.error('Error adding to wishlist: ', error)
       );
     } else {
-      this.bookService.removeBookFromWishlist(this.book.id).subscribe(
+      this.bookService.removeBookFromWishlist(this.authService.userId, this.book.id).subscribe(
         (event) => {
           if(event.type === HttpEventType.Response) {
             this.isBookInWishlist = false;
@@ -102,7 +116,7 @@ export class BookDetailsComponent implements OnInit {
       readBooks.Books = new Array<IBookModel>();
       readBooks.Books.push(this.book);
 
-      this.bookService.markBookAsRead(readBooks).subscribe(
+      this.bookService.markBookAsRead(this.authService.userId, readBooks).subscribe(
         (event) => {
           if (event.type === HttpEventType.Response) {
             this.isBookMarkedAsRead = true;
@@ -112,7 +126,7 @@ export class BookDetailsComponent implements OnInit {
         (error) => console.error('Error marking book as read: ', error)
       )
     } else {
-      this.bookService.unmarkBookAsRead(this.book.id).subscribe(
+      this.bookService.unmarkBookAsRead(this.authService.userId, this.book.id).subscribe(
         (event) => {
           if (event.type === HttpEventType.Response) {
             this.isBookMarkedAsRead = false;

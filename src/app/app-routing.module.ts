@@ -9,17 +9,22 @@ import { CategoryPageComponent } from './category-page/category-page.component';
 import { BookUploadPageComponent } from './book-upload-page/book-upload-page.component';
 import { BookUpdatePageComponent } from './book-update-page/book-update-page.component';
 import { PdfReaderComponent } from './pdf-reader/pdf-reader.component';
+import { AnonymousGuard } from './auth/anonymous.guard';
+import { AuthResolver } from './auth/auth.resolver';
+import { AuthGuard } from './auth/auth.guard';
+import { GoogleCallbackComponent } from './google-callback/google-callback.component';
 
 const routes: Routes = [
   { path: 'home', component: HomepageComponent, title: 'Home - WebLibrary' },
-  { path: 'login', component: LoginComponent, title: 'Login - WebLibrary' },
-  { path: 'register', component: RegisterComponent, title: 'Register - WebLibrary' },
-  { path: 'profile', component: ProfilePageComponent, title: 'Profile' },
+  { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard], resolve: { authCheck: AuthResolver } },
+  { path: 'register', component: RegisterComponent, canActivate: [AnonymousGuard], resolve: { authCheck: AuthResolver } },
+  { path: 'profile/:userId', component: ProfilePageComponent, canActivate: [AuthGuard] },
   { path: 'book/:id', component: BookDetailsPageComponent, title: 'Book Details' },
   { path: 'categories', component: CategoryPageComponent, title: 'Categories' },
-  { path: 'upload', component: BookUploadPageComponent },
+  { path: 'upload', component: BookUploadPageComponent, canActivate: [AuthGuard] },
   { path: 'edit/:id', component: BookUpdatePageComponent },
-  { path: 'read/:id', component: PdfReaderComponent },
+  { path: 'read/:id', component: PdfReaderComponent, canActivate: [AuthGuard] },
+  { path: 'auth/google-callback', component: GoogleCallbackComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

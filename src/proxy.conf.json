@@ -2,7 +2,8 @@
     "/api": {
       "target": "https://weblibrary-dgaqc2f6etd6b4e5.polandcentral-01.azurewebsites.net/",
       "secure": false,
+      "changeOrigin": true,
       "logLevel": "debug",
-      "changeOrigin": true
+      "pathRewrite": {"/api" : ""}
     }
 }  

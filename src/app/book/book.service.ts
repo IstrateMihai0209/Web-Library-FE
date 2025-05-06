@@ -6,6 +6,7 @@ import { IBookModel } from './book.model';
 import { IWishlistModel } from './wishlist.model';
 import { IReadBooksModel } from './read.books.model';
 import { IReadingHistoryModel } from './reading.history.model';
+import { environment } from 'environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +19,19 @@ export class BookService {
   getBookById(bookId: number): Observable<IBookModel> {
     let params = new HttpParams().set('bookId', bookId);
     
-    return this.http.get<IBookModel>('/api/book', { params });
+    return this.http.get<IBookModel>(`${environment.apiUrl}/book`, { params });
   }
 
   getTopPopularBooks(pageNumber: number = 1): Observable<IBookModel[]> {
     let params = this.assignMainParams(pageNumber);
 
-    return this.http.get<IBookModel[]>('/api/book/top-popular', { params });
+    return this.http.get<IBookModel[]>(`${environment.apiUrl}/book/top-popular`, { params });
   }
 
   getBooksByUploader(uploaderId: string | null, pageNumber: number = 1): Observable<IBookModel[]> {
     let params = this.assignMainUserParams(uploaderId, pageNumber);
 
-    return this.http.get<IBookModel[]>('/api/book/uploader', { params });
+    return this.http.get<IBookModel[]>(`${environment.apiUrl}/book/uploader`, { params });
   }
 
   getReadingHistoryOfUser(userId: string | null, pageNumber: number = 1): Observable<IBookModel[]> {
@@ -38,7 +39,7 @@ export class BookService {
       .set('userId', userId ? userId : '')
       .set('pageNumber', pageNumber.toString());
 
-    return this.http.get<any>('/api/reading-history', { params }).pipe(
+    return this.http.get<any>(`${environment.apiUrl}/reading-history`, { params }).pipe(
       map((response => response.books))
     );
   }
@@ -46,7 +47,7 @@ export class BookService {
   getUserWishlist(userId: string | null, pageNumber: number = 1): Observable<IBookModel[]> {
     let params = this.assignMainUserParams(userId, pageNumber);
 
-    return this.http.get<any>('/api/wishlist', { params }).pipe(
+    return this.http.get<any>(`${environment.apiUrl}/wishlist`, { params }).pipe(
       map((response => response.books))
     );
   }
@@ -54,7 +55,7 @@ export class BookService {
   getBooksMarkedAsReadByUser(userId: string | null, pageNumber: number = 1): Observable<IBookModel[]> {
     let params = this.assignMainUserParams(userId, pageNumber);
 
-    return this.http.get<any>('/api/read-books', { params }).pipe(
+    return this.http.get<any>(`${environment.apiUrl}/read-books`, { params }).pipe(
       map((response => response.books))
     );
   }
@@ -63,11 +64,11 @@ export class BookService {
     let params = new HttpParams()
       .set('id', currentBook.id.toString());
 
-    return this.http.get<any>('/api/book/similar-books', { params });
+    return this.http.get<any>(`${environment.apiUrl}/book/similar-books`, { params });
   }
 
   uploadBook(formData: FormData): Observable<IBookModel> {
-    return this.http.post<IBookModel>('/api/book', formData, {
+    return this.http.post<IBookModel>(`${environment.apiUrl}/book`, formData, {
       reportProgress: true,
       observe: 'body'
     });
@@ -76,13 +77,13 @@ export class BookService {
   updateBook(bookId: number, bookDto: any): Observable<IBookModel> {
     let params = new HttpParams().set('bookId', bookId);
 
-    return this.http.put<IBookModel>('api/book', bookDto, { params });  
+    return this.http.put<IBookModel>(`${environment.apiUrl}/book`, bookDto, { params });  
   }
 
   addBookToReadingHistory(userId: string | null, readingHistoryDto: IReadingHistoryModel) {
     let params = new HttpParams().set('userId', userId ? userId : '');
 
-    return this.http.put('api/reading-history/read', readingHistoryDto, {
+    return this.http.put(`${environment.apiUrl}/reading-history/read`, readingHistoryDto, {
       params: params,
       reportProgress: true,
       observe: 'events'
@@ -93,7 +94,7 @@ export class BookService {
     let params = new HttpParams()
       .set('userId', userId ? userId : '');
 
-    return this.http.put('/api/wishlist/add-book', wishlistDto, {
+    return this.http.put(`${environment.apiUrl}/wishlist/add-book`, wishlistDto, {
       params: params, 
       reportProgress: true,
       observe: 'events'
@@ -105,7 +106,7 @@ export class BookService {
       .set('userId', userId ? userId : '')
       .set('bookId', bookId.toString());
 
-      return this.http.put('/api/wishlist/remove-book', "", {
+      return this.http.put(`${environment.apiUrl}/wishlist/remove-book`, "", {
         params: params,
         reportProgress: true,
         observe: 'events'
@@ -117,14 +118,14 @@ export class BookService {
       .set('userId', userId ? userId : '')
       .set('bookId', bookId.toString());
 
-    return this.http.get('/api/wishlist/is-book-in-wishlist', {params, observe: 'response'});
+    return this.http.get(`${environment.apiUrl}/wishlist/is-book-in-wishlist`, {params, observe: 'response'});
   }
 
   markBookAsRead(userId: string | null, readBooksDto: IReadBooksModel) {
     let params = new HttpParams()
       .set('userId', userId ? userId : '');
 
-    return this.http.put('api/read-books/add', readBooksDto, {
+    return this.http.put(`${environment.apiUrl}/read-books/add`, readBooksDto, {
       params: params,
       reportProgress: true,
       observe: 'events'
@@ -136,7 +137,7 @@ export class BookService {
       .set('userId', userId ? userId : '')
       .set('bookId', bookId.toString());
 
-    return this.http.put('api/read-books/remove', "", {
+    return this.http.put(`${environment.apiUrl}/read-books/remove`, "", {
       params: params,
       reportProgress: true,
       observe: 'events'
@@ -148,14 +149,14 @@ export class BookService {
       .set('userId', userId ? userId : '')
       .set('bookId', bookId.toString());
 
-    return this.http.get('api/read-books/is-marked-as-read', { params, observe: 'response' });
+    return this.http.get(`${environment.apiUrl}/read-books/is-marked-as-read`, { params, observe: 'response' });
   }
 
   deleteBook(bookId: number) {
     let params = new HttpParams()
       .set('bookId', bookId.toString());
 
-    return this.http.delete('api/book', { params });
+    return this.http.delete(`${environment.apiUrl}/book`, { params });
   }
 
   searchBooks(searchQuery: string, filters: { [key: string]: string[] }, pageNumber: number): Observable<IBookModel[]> {
@@ -163,7 +164,7 @@ export class BookService {
       .set('searchQuery', searchQuery)
       .set('pageNumber', pageNumber.toString());
 
-    return this.http.post<IBookModel[]>('api/book/search', filters, { params });
+    return this.http.post<IBookModel[]>(`${environment.apiUrl}/book/search`, filters, { params });
   }
 
   private assignMainUserParams(userId: string | null, pageNumber: number): HttpParams {

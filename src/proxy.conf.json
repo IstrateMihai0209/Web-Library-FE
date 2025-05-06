@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://localhost:7242",
+      "target": "weblibrary-dgaqc2f6etd6b4e5.polandcentral-01.azurewebsites.net",
       "secure": false,
       "logLevel": "debug"
     }

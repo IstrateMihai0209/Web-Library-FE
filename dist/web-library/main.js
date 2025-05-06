@@ -1969,9 +1969,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   BookService: () => (/* binding */ BookService)
 /* harmony export */ });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ 6443);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ 271);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 7580);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ 6443);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 271);
+/* harmony import */ var environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! environment */ 8730);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 7580);
+
 
 
 
@@ -1983,138 +1985,138 @@ class BookService {
   }
 
   getBookById(bookId) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('bookId', bookId);
-    return this.http.get('/api/book', {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('bookId', bookId);
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/book`, {
       params
     });
   }
   getTopPopularBooks(pageNumber = 1) {
     let params = this.assignMainParams(pageNumber);
-    return this.http.get('/api/book/top-popular', {
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/book/top-popular`, {
       params
     });
   }
   getBooksByUploader(uploaderId, pageNumber = 1) {
     let params = this.assignMainUserParams(uploaderId, pageNumber);
-    return this.http.get('/api/book/uploader', {
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/book/uploader`, {
       params
     });
   }
   getReadingHistoryOfUser(userId, pageNumber = 1) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '').set('pageNumber', pageNumber.toString());
-    return this.http.get('/api/reading-history', {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '').set('pageNumber', pageNumber.toString());
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/reading-history`, {
       params
-    }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.map)(response => response.books));
+    }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(response => response.books));
   }
   getUserWishlist(userId, pageNumber = 1) {
     let params = this.assignMainUserParams(userId, pageNumber);
-    return this.http.get('/api/wishlist', {
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/wishlist`, {
       params
-    }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.map)(response => response.books));
+    }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(response => response.books));
   }
   getBooksMarkedAsReadByUser(userId, pageNumber = 1) {
     let params = this.assignMainUserParams(userId, pageNumber);
-    return this.http.get('/api/read-books', {
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/read-books`, {
       params
-    }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.map)(response => response.books));
+    }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(response => response.books));
   }
   getSimilarBooks(currentBook) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('id', currentBook.id.toString());
-    return this.http.get('/api/book/similar-books', {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('id', currentBook.id.toString());
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/book/similar-books`, {
       params
     });
   }
   uploadBook(formData) {
-    return this.http.post('/api/book', formData, {
+    return this.http.post(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/book`, formData, {
       reportProgress: true,
       observe: 'body'
     });
   }
   updateBook(bookId, bookDto) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('bookId', bookId);
-    return this.http.put('api/book', bookDto, {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('bookId', bookId);
+    return this.http.put(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/book`, bookDto, {
       params
     });
   }
   addBookToReadingHistory(userId, readingHistoryDto) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '');
-    return this.http.put('api/reading-history/read', readingHistoryDto, {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '');
+    return this.http.put(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/reading-history/read`, readingHistoryDto, {
       params: params,
       reportProgress: true,
       observe: 'events'
     });
   }
   addBookToWishlist(userId, wishlistDto) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '');
-    return this.http.put('/api/wishlist/add-book', wishlistDto, {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '');
+    return this.http.put(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/wishlist/add-book`, wishlistDto, {
       params: params,
       reportProgress: true,
       observe: 'events'
     });
   }
   removeBookFromWishlist(userId, bookId) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '').set('bookId', bookId.toString());
-    return this.http.put('/api/wishlist/remove-book', "", {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '').set('bookId', bookId.toString());
+    return this.http.put(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/wishlist/remove-book`, "", {
       params: params,
       reportProgress: true,
       observe: 'events'
     });
   }
   isBookInWishlist(userId, bookId) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '').set('bookId', bookId.toString());
-    return this.http.get('/api/wishlist/is-book-in-wishlist', {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '').set('bookId', bookId.toString());
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/wishlist/is-book-in-wishlist`, {
       params,
       observe: 'response'
     });
   }
   markBookAsRead(userId, readBooksDto) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '');
-    return this.http.put('api/read-books/add', readBooksDto, {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '');
+    return this.http.put(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/read-books/add`, readBooksDto, {
       params: params,
       reportProgress: true,
       observe: 'events'
     });
   }
   unmarkBookAsRead(userId, bookId) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '').set('bookId', bookId.toString());
-    return this.http.put('api/read-books/remove', "", {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '').set('bookId', bookId.toString());
+    return this.http.put(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/read-books/remove`, "", {
       params: params,
       reportProgress: true,
       observe: 'events'
     });
   }
   isBookMarkedAsRead(userId, bookId) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '').set('bookId', bookId.toString());
-    return this.http.get('api/read-books/is-marked-as-read', {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '').set('bookId', bookId.toString());
+    return this.http.get(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/read-books/is-marked-as-read`, {
       params,
       observe: 'response'
     });
   }
   deleteBook(bookId) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('bookId', bookId.toString());
-    return this.http.delete('api/book', {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('bookId', bookId.toString());
+    return this.http.delete(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/book`, {
       params
     });
   }
   searchBooks(searchQuery, filters, pageNumber) {
-    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('searchQuery', searchQuery).set('pageNumber', pageNumber.toString());
-    return this.http.post('api/book/search', filters, {
+    let params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('searchQuery', searchQuery).set('pageNumber', pageNumber.toString());
+    return this.http.post(`${environment__WEBPACK_IMPORTED_MODULE_0__.environment.apiUrl}/book/search`, filters, {
       params
     });
   }
   assignMainUserParams(userId, pageNumber) {
-    return new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('userId', userId ? userId : '').set('pageNumber', pageNumber.toString());
+    return new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('userId', userId ? userId : '').set('pageNumber', pageNumber.toString());
   }
   assignMainParams(pageNumber) {
-    return new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpParams().set('pageNumber', pageNumber.toString());
+    return new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpParams().set('pageNumber', pageNumber.toString());
   }
   static {
     this.ɵfac = function BookService_Factory(t) {
-      return new (t || BookService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient));
+      return new (t || BookService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient));
     };
   }
   static {
-    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
+    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
       token: BookService,
       factory: BookService.ɵfac,
       providedIn: 'root'

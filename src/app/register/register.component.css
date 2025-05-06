@@ -21,7 +21,8 @@
 }
 
 .register-container input[type="text"],
-.register-container input[type="password"] {
+.register-container input[type="password"],
+.register-container input[type="email"] {
     border: 0.7px solid #000000;
     border-radius: 2.34px;
     padding: 10px;
@@ -67,4 +68,25 @@
     max-width: 20%;
     max-height: 20%;
     vertical-align: middle;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-bottom: 8px;
+}
+
+.login-link {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.error-message {
+    color: #dc3545;
+    margin: 1rem 0;
+}
+
+.success-message {
+    color: #28a745;
+    margin: 1rem 0;
 }

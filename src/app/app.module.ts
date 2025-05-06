@@ -9,7 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { BookComponent } from './book/book.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FiltersComponent } from './filters/filters.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
@@ -29,6 +29,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { BookUpdatePageComponent } from './book-update-page/book-update-page.component';
 import { PdfReaderComponent } from './pdf-reader/pdf-reader.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { SocialCallbackComponent } from './social-callback/social-callback.component';
+import { GoogleCallbackComponent } from './google-callback/google-callback.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     ConfirmationDialogComponent,
     BookUpdatePageComponent,
     SearchBarComponent,
+    SocialCallbackComponent,
+    GoogleCallbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,9 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     MatButtonModule,
     PdfReaderComponent,
 ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,18 +1,36 @@
 <div class="register-container">
-    <div class="center-form">
-        <h2>Register new account</h2>
-        <label class="indicator">E-mail address</label>
-        <input type="text">
-        <label class="indicator">Profile name</label>
-        <input type="text">
-        <label class="indicator">Password</label>
-        <input type="password">
-        <label class="indicator">Confirm password</label>
-        <input type="password">
-        <button>Register</button>
-        <div class="google-btn">
-            <img src="assets/logos/google logo.png">
-            <p>Continue with Google</p>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="center-form">
+            <h2>Register new account</h2>
+            
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+            <label class="indicator">E-mail address</label>
+            <input type="email" formControlName="email">
+            <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors" class="error">
+                <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required!</div>
+                <div *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format!</div>
+            </div>
+            <label class="indicator">Password</label>
+            <input type="password" formControlName="password">
+            <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors" class="error">
+                <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required!</div>
+                <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters!</div>
+            </div>
+            <label class="indicator">Confirm password</label>
+            <input type="password" formControlName="confirmPassword">
+            <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.errors?.['mismatch']" class="error">Passwords do not match!</div>
+
+            <button type="submit" [disabled]="registerForm.invalid">Register</button>
+            <div class="google-btn" (click)="authService.loginWithGoogle()">
+                <img src="assets/logos/google logo.png">
+                <p>Continue with Google</p>
+            </div>
+            
+            <div class="login-link">
+                Already have an account? <a routerLink="/login">Login here</a>
+            </div>
         </div>
-    </div>
+    </form>
 </div>

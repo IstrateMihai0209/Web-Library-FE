@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BookService } from '../book/book.service';
 import { CommonModule } from '@angular/common';
 import { catchError, of } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { IReadingHistoryModel } from '../book/reading.history.model';
 
 @Component({
   selector: 'lib-pdf-reader',
@@ -27,6 +29,7 @@ export class PdfReaderComponent implements OnInit {
 
  constructor(
     private bookService: BookService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private pdfService: NgxExtendedPdfViewerService,
     private cdr: ChangeDetectorRef
@@ -50,19 +53,11 @@ export class PdfReaderComponent implements OnInit {
   }
   
   fetchBook(bookId: number): void {
-    this.bookService.getBookById(bookId).pipe(
-      catchError(error => {
-        this.error = 'Failed to load book';
-        this.isLoading = false;
-        this.cdr.markForCheck();
-        console.error('Error fetching book details: ', error);
-        return of(null);
-      })
-    ).subscribe(result => {
-        this.book = result;
-        this.isLoading = false;
-        this.cdr.markForCheck();
-    });
+    this.loadBook(bookId);
+
+    setTimeout(() => {
+      this.addBookToReadingHistory();
+    }, 1000);
   }
 
   restorePosition() {
@@ -118,5 +113,40 @@ export class PdfReaderComponent implements OnInit {
     }
 
     return true;
+  }
+
+  private loadBook(bookId: number) {
+    this.bookService.getBookById(bookId).pipe(
+      catchError(error => {
+        this.error = 'Failed to load book';
+        this.isLoading = false;
+        this.cdr.markForCheck();
+        console.error('Error fetching book details: ', error);
+        return of(null);
+      })
+    ).subscribe(result => {
+        this.book = result;
+        this.isLoading = false;
+        this.cdr.markForCheck();
+    });
+  }
+
+  private addBookToReadingHistory() {
+    const readingHistoryDto = {} as IReadingHistoryModel;
+      readingHistoryDto.Books = new Array<IBookModel>();
+      readingHistoryDto.Books.push(this.book ? this.book : {} as IBookModel);
+      readingHistoryDto.AccessDate = new Date();
+
+      console.log('Reading History DTO:', readingHistoryDto.Books[0].title);
+      console.log('User ID:', this.authService.userId);
+
+      this.bookService.addBookToReadingHistory(this.authService.userId, readingHistoryDto).subscribe(
+        response => {
+          console.log('Book added to reading history!');
+        },
+        error => {
+          console.error('Error adding book to reading history!');
+        }
+      );
   }
 }

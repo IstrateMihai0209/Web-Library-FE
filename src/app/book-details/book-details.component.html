@@ -3,26 +3,28 @@
         <img [src]="book.coverImage" [alt]="book.title">
         <div class="book-actions">
             <button id="read" (click)="readBook()">Read</button>
-            <div class="wishlist" *ngIf="!isBookMarkedAsRead">
-                <button [id]="wishlistButtonId" *ngIf="book.userId !== bookService.userId" (click)="addOrRemoveFromWishlist()">
-                    <p *ngIf="!isBookInWishlist; else remove">
-                        Add to wishlist
+            <div *ngIf="showUserActions">
+                <div class="wishlist" *ngIf="!isBookMarkedAsRead">
+                    <button [id]="wishlistButtonId" *ngIf="book.userId !== authService.userId" (click)="addOrRemoveFromWishlist()">
+                        <p *ngIf="!isBookInWishlist; else remove">
+                            Add to wishlist
+                        </p>
+                        <ng-template #remove>
+                            Remove from wishlist
+                        </ng-template>
+                    </button>
+                </div>
+                <button [id]="markAsReadButtonId" *ngIf="book.userId !== authService.userId" (click)="markOrUnmarkAsRead()">
+                    <p *ngIf="!isBookMarkedAsRead; else remove">
+                        Mark as read
                     </p>
                     <ng-template #remove>
-                        Remove from wishlist
+                        Unmark as read
                     </ng-template>
                 </button>
+                <button id="normal-button" *ngIf="book.userId === authService.userId" (click)="editBook()">Edit book details</button>
+                <button id="delete" *ngIf="book.userId === authService.userId" (click)="confirmDeletion()">Delete book</button>
             </div>
-            <button [id]="markAsReadButtonId" *ngIf="book.userId !== bookService.userId" (click)="markOrUnmarkAsRead()">
-                <p *ngIf="!isBookMarkedAsRead; else remove">
-                    Mark as read
-                </p>
-                <ng-template #remove>
-                    Unmark as read
-                </ng-template>
-            </button>
-            <button id="normal-button" *ngIf="book.userId === bookService.userId" (click)="editBook()">Edit book details</button>
-            <button id="delete" *ngIf="book.userId === bookService.userId" (click)="confirmDeletion()">Delete book</button>
         </div>
     </div>
     <div class="book-description">

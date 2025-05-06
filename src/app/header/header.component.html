@@ -1,7 +1,13 @@
 <div class="navbar">
     <a routerLink="/home" routerLinkActive="active">Home</a>
-    <a routerLink="/profile" routerLinkActive="active">My Books</a>
-    <a routerLink="/register" routerLinkActive="active" style="float:right;">Register</a>
-    <a routerLink="/login" routerLinkActive="active" style="float:right;">Log In</a>
+    <a [routerLink]="['/profile', authService.userId]" routerLinkActive="active">My Books</a>
+    <ng-container *ngIf="!isAuthenticated; else authenticatedLinks">
+        <a routerLink="/register" routerLinkActive="active" style="float:right;">Register</a>
+        <a routerLink="/login" routerLinkActive="active" style="float:right;">Log In</a>
+    </ng-container>
     <a routerLink="/upload" routerLinkActive="active" style="float:right;">Upload</a>
+    <ng-template #authenticatedLinks>
+        Hi {{ username }}
+        <a (click)="logout()" style="float:right;">Logout</a>
+    </ng-template>
 </div>

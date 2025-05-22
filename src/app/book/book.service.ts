@@ -70,7 +70,8 @@ export class BookService {
   uploadBook(formData: FormData): Observable<IBookModel> {
     return this.http.post<IBookModel>(`${environment.apiUrl}/book`, formData, {
       reportProgress: true,
-      observe: 'body'
+      observe: 'body',
+      withCredentials: true
     });
   }
 

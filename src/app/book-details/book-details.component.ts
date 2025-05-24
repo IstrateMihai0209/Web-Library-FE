@@ -152,7 +152,7 @@ export class BookDetailsComponent implements OnInit {
       this.bookService.deleteBook(this.book.id).subscribe({
         next: () => {
           console.log('Book removed from library');
-          this.router.navigate(['/profile']);
+          this.router.navigate([`/profile/${this.authService.userId}`]);
         },
         error: (err) => {
           console.error('An error appeared while removing book', err);

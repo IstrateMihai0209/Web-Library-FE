@@ -71,7 +71,7 @@ export class AuthService {
   }
 
   loginWithGoogle() {
-    window.location.href = 'https://weblibrary-dgaqc2f6etd6b4e5.polandcentral-01.azurewebsites.net/api/auth/external-login?provider=Google';
+    window.location.href = `${environment.apiUrl}/auth/external-login?provider=Google`;
   }
 
   handleSocialCallback(): Observable<boolean> {

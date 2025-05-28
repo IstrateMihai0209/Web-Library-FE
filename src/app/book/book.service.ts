@@ -64,7 +64,10 @@ export class BookService {
     let params = new HttpParams()
       .set('id', currentBook.id.toString());
 
-    return this.http.get<any>(`${environment.apiUrl}/book/similar-books`, { params });
+    return this.http.get<any>(`${environment.apiUrl}/book/similar-books`, { 
+      params,
+      withCredentials: true
+     });
   }
 
   uploadBook(formData: FormData): Observable<IBookModel> {

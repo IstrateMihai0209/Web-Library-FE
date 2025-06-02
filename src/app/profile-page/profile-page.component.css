@@ -3,17 +3,17 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-    padding-top: 20px;
+    padding-top: 50px;
 }
 
 .profile-sections {
     flex: 1;
-    padding-top: 50px;
+    padding-top: 60px;
     max-width: 30%;
 }
 
 .profile-sections button {
-    width: 80%;
+    width: 100%;
     padding: 10px;
     margin: 5px 0;
     background-color: transparent;
@@ -38,4 +38,15 @@
 
 .profile-sections button.active {
     background-color: #FFEBBF;
+}
+
+.center h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px 0 10px 0;
+    padding-left: 10px;
+    border-bottom: 1.5px solid #000;
 }

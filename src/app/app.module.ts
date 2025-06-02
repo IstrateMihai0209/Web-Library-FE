@@ -32,6 +32,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { SocialCallbackComponent } from './social-callback/social-callback.component';
 import { GoogleCallbackComponent } from './google-callback/google-callback.component';
+import { AddUsernameComponent } from './add-username/add-username.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { GoogleCallbackComponent } from './google-callback/google-callback.compo
     SearchBarComponent,
     SocialCallbackComponent,
     GoogleCallbackComponent,
+    AddUsernameComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,8 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { environment } from 'environment';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'lib-book-details',
@@ -22,10 +24,12 @@ export class BookDetailsComponent implements OnInit {
   showUserActions: boolean = false;
   wishlistButtonId: string = "";
   markAsReadButtonId: string = "";
+  uploaderName: string = "";
 
   constructor (
     public bookService: BookService,
     public authService: AuthService,
+    public userService: UserService,
     public dialog: MatDialog, 
     private router: Router) {}
 
@@ -33,6 +37,7 @@ export class BookDetailsComponent implements OnInit {
     setTimeout(() => {
       this.checkIfBookIsInWishlist();
       this.checkIfBookIsMarkedAsRead();
+      this.getUploaderUserName();
       this.isLoading = false;
     }, 500);
 
@@ -162,5 +167,17 @@ export class BookDetailsComponent implements OnInit {
 
   editBook() {
     this.router.navigate(['/edit', this.book.id]);
+  }
+
+  getUploaderUserName() {
+    this.userService.getUserNameById(this.book.userId).subscribe({
+      next: (result) => {
+        console.log(result);
+        this.uploaderName = result;
+      },
+      error: (err) => {
+        console.error('An error appeared while requesting the uploader name', err);
+      }
+    });
   }
 }

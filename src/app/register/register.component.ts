@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, { validator: this.passwordMatchValidator });
@@ -45,9 +46,9 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    const { email, password } = this.registerForm.value;
+    const { email, username, password } = this.registerForm.value;
 
-    this.authService.register({ email, password }).subscribe({
+    this.authService.register({ email, username, password }).subscribe({
       next: () => {
         this.successMessage = 'Registration successful! Redirecting to login...';
         setTimeout(() => {

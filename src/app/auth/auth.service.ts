@@ -22,6 +22,7 @@ export class AuthService {
     private router: Router, 
     private route: ActivatedRoute) {
       this.initializeAuthState(); 
+      console.log(this.currentUser$);
   }
 
   get userId(): string | null {
@@ -62,7 +63,7 @@ export class AuthService {
     );
   }
 
-  register(user: { email: string, password: string }) {
+  register(user: { email: string, username: string, password: string }) {
     if (this.isUserAuthenticated) {
       return throwError(() => 'Already logged in!');
     }

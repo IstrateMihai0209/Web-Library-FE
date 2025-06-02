@@ -16,6 +16,7 @@ body {
     align-items: flex-start;
     max-width: 60%;
     margin: 0 auto;
+    position: relative;
 }
 
 .center-form {
@@ -24,3 +25,12 @@ body {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.username-link {
+    text-decoration-line: none;
+    color: #304BCC;
+}
+
+.username-link:hover {
+    color: #2F6CCC;
+}

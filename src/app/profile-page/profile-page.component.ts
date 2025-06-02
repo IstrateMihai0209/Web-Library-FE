@@ -6,6 +6,7 @@ import { browserRefresh } from '../app.component';
 import { IBookModel } from '../book/book.model';
 import { BookService } from '../book/book.service';
 import { AuthService } from '../auth/auth.service';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'lib-profile-page',
@@ -14,19 +15,19 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ProfilePageComponent implements AfterViewInit, OnDestroy {
   currentFilter: string = 'reading';
-  profileId: string | null = '';
+  profileId: string = '';
   error: string | null = null;
+  userName: string = '';
 
   private routerSubscription: Subscription = new Subscription();
-  private browserRefresh: boolean = false;
 
   loadBooksFn!: (page: number) => Observable<IBookModel[]>;
 
   constructor(
-      private router: Router,
-      private route: ActivatedRoute,
-      private bookService: BookService,
-      private authService: AuthService
+    private router: Router,
+    private route: ActivatedRoute,
+    private bookService: BookService,
+    public userService: UserService
     ) { }
 
   ngOnInit(): void {
@@ -46,6 +47,14 @@ export class ProfilePageComponent implements AfterViewInit, OnDestroy {
       this.loadBooksFn = this.getLoadBooksFn(this.currentFilter);
     });
 
+    this.userService.getUserNameById(this.profileId).subscribe({
+      next: (result) => {
+        this.userName = result;
+      },
+      error: (err) => {
+        console.error('An error appeared while requesting the uploader name', err);
+      }
+    });
   }
 
   ngAfterViewInit() {

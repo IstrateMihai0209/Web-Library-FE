@@ -1,0 +1,16 @@
+<div class="username-container">
+    <form [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
+        <div class="center-form">
+            <h2>Choose an username</h2>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <label class="indicator">Username</label>
+            <input type="text" formControlName="username">
+            <div *ngIf="usernameForm.get('username')?.touched && usernameForm.get('username')?.errors" class="error">
+                <div *ngIf="usernameForm.get('email')?.errors?.['required']">Email is required!</div>
+            </div>
+        </div>
+        <div class="center-form">
+            <button type="submit" [disabled]="usernameForm.invalid || isLoading">{{ isLoading ? 'Redirecting...' : 'Submit' }}</button>
+        </div>
+    </form>
+</div>

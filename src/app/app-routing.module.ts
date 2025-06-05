@@ -13,6 +13,8 @@ import { AnonymousGuard } from './auth/anonymous.guard';
 import { AuthResolver } from './auth/auth.resolver';
 import { AuthGuard } from './auth/auth.guard';
 import { GoogleCallbackComponent } from './google-callback/google-callback.component';
+import { AddUsernameComponent } from './add-username/add-username.component';
+import { UsernameChangeGuard } from './add-username/change-username.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomepageComponent, title: 'Home - WebLibrary' },
@@ -25,6 +27,7 @@ const routes: Routes = [
   { path: 'edit/:id', component: BookUpdatePageComponent },
   { path: 'read/:id', component: PdfReaderComponent, canActivate: [AuthGuard] },
   { path: 'auth/google-callback', component: GoogleCallbackComponent },
+  { path: 'change-username', component: AddUsernameComponent, canDeactivate: [UsernameChangeGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

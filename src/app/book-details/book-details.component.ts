@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { environment } from 'environment';
 import { UserService } from '../user/user.service';
+import { ConfirmationService } from '../confirmation.service';
 
 @Component({
   selector: 'lib-book-details',
@@ -30,7 +31,8 @@ export class BookDetailsComponent implements OnInit {
     public bookService: BookService,
     public authService: AuthService,
     public userService: UserService,
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
+    private confirmationService: ConfirmationService, 
     private router: Router) {}
 
   ngOnInit() {
@@ -144,13 +146,8 @@ export class BookDetailsComponent implements OnInit {
   }
 
   confirmDeletion() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.deleteBook();
-      }
-    })
+    const message = "Are you sure you want to remove this book from the library?";
+    this.confirmationService.confirm(message, "Remove", "Cancel");
   }
 
   deleteBook() {

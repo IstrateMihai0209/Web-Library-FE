@@ -13,6 +13,7 @@ export class GoogleCallbackComponent implements OnInit {
   ngOnInit(): void {
     this.authService.handleSocialCallback().subscribe(success => {
       if(!success) this.router.navigate(['/login']);
+      else this.router.navigate(['/change-username']);
     })
   }
 }

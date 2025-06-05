@@ -8,7 +8,7 @@ import { BehaviorSubject, catchError, distinctUntilChanged, filter, finalize, ma
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<any>(null);
+  public currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   private authCheckedSubject = new BehaviorSubject<boolean>(false);
@@ -21,8 +21,19 @@ export class AuthService {
     private http: HttpClient,
     private router: Router, 
     private route: ActivatedRoute) {
-      this.initializeAuthState(); 
-      console.log(this.currentUser$);
+      this.initializeAuthState();
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        this.currentUserSubject.next(JSON.parse(savedUser));
+      } 
+
+      this.currentUser$.subscribe(user => {
+        if (user) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        } else {
+          localStorage.removeItem('currentUser');
+        }
+      })
   }
 
   get userId(): string | null {

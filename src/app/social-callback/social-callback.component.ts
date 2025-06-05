@@ -12,7 +12,10 @@ export class SocialCallbackComponent implements OnInit {
 
   ngOnInit () {
     this.authService.handleSocialCallback().subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: () => {
+        console.log('navigating to change-username!');
+        this.router.navigate(['/change-username'])
+      },
       error: () => this.router.navigate(['/login'])
     });
   }

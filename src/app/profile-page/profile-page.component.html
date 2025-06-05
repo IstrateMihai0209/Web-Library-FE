@@ -1,4 +1,5 @@
 <div class="center">
+    <h1><a href="{{ userService.getUploaderProfilePage(profileId) }}" class="username-link">{{ userName }}</a></h1>
     <lib-book-list class="book-list" [loadBooksFn]="loadBooksFn"></lib-book-list>
     <div class="profile-sections">
         <button id="reading" (click)="setFilter('reading'); highlightButton('reading');" [class.active]="currentFilter === 'reading'">Currently Reading</button>
